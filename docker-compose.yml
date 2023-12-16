@@ -1,0 +1,27 @@
+version: "2.22"
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: my-mongodb
+    ports:
+      - "27017:27017"
+
+  task-crud-backend:
+    container_name: task-crud-backend
+    build:
+      context: ./node
+      dockerfile: Dockerfile.node
+    ports:
+      - "9000:9000"
+    depends_on:
+      - mongodb
+
+  task-crud-frontend:
+    container_name: task-crud-frontend
+    build:
+      context: ./react
+      dockerfile: Dockerfile.react
+    ports:
+      - "3000:3000"
+    depends_on:
+      - task-crud-backend

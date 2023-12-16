@@ -1,0 +1,14 @@
+Create Node Js Crud App using React Js Website Interface for Mongo And ExpressjS -OR- ChatGpt + voice 
++++++ you can switch from interface mode to Code Mode to edit your controllers and models +++++
+
+Voice Chat + virtual reality therapy for mental health
+
+A voice chat app that uses GPT-3 to help people with mental health issues. 
+It uses a virtual reality environment to help people feel more comfortable talking about their issues.
+
+
+Google Analytics for Website
+
+Platform like facebook, instagram, twitter, etc. with something special
+
+
