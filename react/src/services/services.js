@@ -1,8 +1,7 @@
 import axios from "axios";
-const { REACT_APP_API_BACK } = process.env;
 
 const apiClient = axios.create({
-  baseURL: REACT_APP_API_BACK,
+  baseURL: process.env.REACT_APP_API_BACK,
   withCredentials: false,
   headers: {
     Accept: "application/json",

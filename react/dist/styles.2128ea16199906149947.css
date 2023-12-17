@@ -1,0 +1,193 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #151a30;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*  ToDoPage  */
+
+.todo {
+  margin: auto;
+  width: 400px;
+}
+
+.form input,
+button {
+  color: white;
+  font-size: 20px;
+  outline: none;
+  background-color: #593bab;
+  border: solid 2px #593bab;
+}
+
+.form input {
+  padding: 20px;
+  background-color: transparent;
+
+  width: 80%;
+  margin: 0px;
+}
+
+.form button {
+  width: 20%;
+  margin: 0px;
+  padding: 20px 0px;
+  cursor: pointer;
+}
+
+.colors {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0px;
+}
+
+.color {
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin: 0px 10px;
+  transition: all 0.2s;
+}
+
+.current {
+  transform: scale(0.8) rotate(-90deg);
+}
+
+.color:hover {
+  transform: scale(0.8) rotate(-90deg);
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 8px;
+  background-color: white;
+}
+
+/* task Component  */
+.task {
+  padding: 25px 20px;
+  margin: 5px 0px;
+  width: 100%;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.task span {
+  font-size: 20px;
+  line-height: 0;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+
+.task .checkbox {
+  font-size: 25px;
+  margin: 0px 3px 0px 0px;
+  cursor: pointer;
+}
+
+.title_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin: 0px 0px 0px 10px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.popup {
+  width: 100vw;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-body {
+  width: 600px;
+  background-color: #151a30;
+  border-radius: 10px;
+  padding: 50px 30px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+.popup-body h2 {
+  color: white;
+  text-align: center;
+  width: 100%;
+  margin: 0px 0px 10px 0px;
+}
+
+.popup-body input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.popup-body .buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.popup-body button {
+  width: 25%;
+  margin: 0px 0px 0px 10px;
+  padding: 15px;
+}
+
+.popup-body .cancel {
+  background-color: transparent;
+}
+
