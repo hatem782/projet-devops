@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
 module.exports.ConnectMongo = () => {
   mongoose
-    .connect("mongodb://127.0.0.1:27017/db", {
+    .connect("mongodb://localhost:27017", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
