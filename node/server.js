@@ -1,5 +1,5 @@
+// server.js
 const express = require("express");
-const port = 9000;
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -19,7 +19,9 @@ app.get("/test", (req, res) => {
   res.send("<h1>Hello World</h1>");
 });
 
-app.listen(port, () => {
-  console.log(` Node app listening on port ${port}`);
+const server = app.listen(9000, () => {
+  console.log(`Node app listening on port 9000`);
   ConnectMongo();
 });
+
+module.exports = server; // Export the server
