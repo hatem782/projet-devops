@@ -18,15 +18,3 @@ services:
       PORT: "9000"
     depends_on:
       - mongodb
-
-  task-crud-frontend:
-    container_name: task-crud-frontend
-    build:
-      context: ./react
-      dockerfile: Dockerfile.react
-    ports:
-      - "80:80"
-    environment:
-      REACT_APP_API_BACK: "http://localhost:9000"
-    depends_on:
-      - task-crud-backend
