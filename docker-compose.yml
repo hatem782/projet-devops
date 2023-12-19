@@ -13,6 +13,9 @@ services:
       dockerfile: Dockerfile.node
     ports:
       - "9000:9000"
+    environment:
+      DB_URI: "mongodb://mongodb:27017/bd"
+      PORT: "9000"
     depends_on:
       - mongodb
 
@@ -22,6 +25,8 @@ services:
       context: ./react
       dockerfile: Dockerfile.react
     ports:
-      - "3000:3000"
+      - "80:80"
+    environment:
+      REACT_APP_API_BACK: "http://localhost:9000"
     depends_on:
       - task-crud-backend

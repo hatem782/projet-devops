@@ -1,2 +1,6 @@
 docker-compose build
 docker-compose up   
+
+// if problem with installing pm2 globally
+npm install pm2 --f
+./node_modules/.bin/pm2  start server.js -i max -f
