@@ -48,6 +48,7 @@ function ToDo() {
           onChange={textChanged}
           value={task}
           style={{ borderColor: currentColor }}
+          role="textbox"
         />
         <button
           onClick={Add}
@@ -76,7 +77,7 @@ function ToDo() {
 
 export const Colors = ({ setCurCol, currentColor }) => {
   return (
-    <div className="colors">
+    <div className="colors" data-testid="todo-1">
       {colors.map((color, indice) => {
         return (
           <span

@@ -1,5 +1,6 @@
 const cluster = require("cluster");
 const os = require("os");
+let server = null;
 
 // Vérifie si le processus actuel est le processus maître
 if (cluster.isMaster) {
@@ -12,7 +13,6 @@ if (cluster.isMaster) {
   }
 } else {
   const express = require("express");
-  const port = 9000;
   const cors = require("cors");
   const bodyParser = require("body-parser");
   const dotenv = require("dotenv");
@@ -33,36 +33,11 @@ if (cluster.isMaster) {
     res.send("<h1>Hello World</h1>");
   });
 
-  app.listen(port, () => {
+  let port = process.env.PORT || 9000;
+  server = app.listen(port, () => {
     console.log(`Node app listening on port ${port}`);
     ConnectMongo();
   });
 }
 
-// const express = require("express");
-// const port = 9000;
-// const cors = require("cors");
-// const bodyParser = require("body-parser");
-// const dotenv = require("dotenv");
-// dotenv.config();
-
-// const { corstAllowAll } = require("./configs/corsConfig");
-// const { ConnectMongo } = require("./configs/MongoConfig");
-// const Routes = require("./routes/Task.routes");
-
-// const app = express();
-
-// app.use(cors(corstAllowAll));
-// app.options("*", cors());
-// app.use(bodyParser.json());
-
-// app.use("/", Routes);
-
-// app.get("/test", (req, res) => {
-//   res.send("<h1>Hello World</h1>");
-// });
-
-// app.listen(process.env.PORT || 9000, () => {
-//   console.log(` Node app listening on port ${port}`);
-//   ConnectMongo();
-// });
+module.exports = server; // Export the server
