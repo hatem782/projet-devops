@@ -38,6 +38,7 @@ module.exports = {
     }),
     new webpack.EnvironmentPlugin({
       REACT_APP_API_BACK: "http://localhost:9000",
+      REACT_APP_VERSION: "1.0.0",
     }),
   ],
   resolve: {

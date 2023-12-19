@@ -6,23 +6,25 @@ import {
 } from "react-icons/md";
 
 import { color_done } from "../data";
+import { useDispatch } from "react-redux";
 
 import "./task.css";
 
 function Task({ task, Edit, DoneUndone, DeleteTask }) {
   let done = task.completed;
   let color = done ? color_done : task.color;
+  const dispatch = useDispatch();
 
   const StartEdir = () => {
     Edit(task);
   };
 
   const DoneUndone_click = () => {
-    DoneUndone(task);
+    dispatch(DoneUndone(task));
   };
 
   const Delete_click = () => {
-    DeleteTask(task);
+    dispatch(DeleteTask(task));
   };
 
   return (

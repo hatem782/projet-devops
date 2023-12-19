@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./popup.css";
 import { Colors } from "../ToDo";
+import { useDispatch } from "react-redux";
 
 function PopupEdit({ handle_close, task_up, UpdateTask }) {
   const [task, setTask] = useState("");
   const [currentColor, setCurCol] = useState("#593bab");
+  const dispatch = useDispatch();
 
   function textChanged(event) {
     setTask(event.target.value);
@@ -16,7 +18,9 @@ function PopupEdit({ handle_close, task_up, UpdateTask }) {
   }, [task_up]);
 
   function Update() {
-    UpdateTask({ ...task_up, title: task, color: currentColor }, handle_close);
+    dispatch(
+      UpdateTask({ ...task_up, title: task, color: currentColor }, handle_close)
+    );
   }
 
   return (

@@ -93,3 +93,9 @@ button {
   width: 8px;
   background-color: white;
 }
+
+.version {
+  text-align: center;
+  width: 100%;
+  color: white;
+}

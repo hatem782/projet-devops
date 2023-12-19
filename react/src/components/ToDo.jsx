@@ -1,14 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Task from "./Task/Task";
-import { data, colors } from "./data";
+import { colors } from "./data";
 import PopupEdit from "./PopupEdit/PopupEdit";
-import useTasks from "../hooks/useTasks";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  CreateTask,
+  DoneUndoneTask,
+  GetAllTasks,
+  UpdateTask,
+  deleteTask,
+} from "../redux/Tasks.reducer";
 
 function ToDo() {
   const [task, setTask] = useState("");
-  const { tasks, AddTask, DoneUndone, UpdateTask, DeleteTask } = useTasks();
+  const tasks = useSelector((state) => state.TasksReducers.tasks);
   const [currentColor, setCurCol] = useState("#593bab");
   const [update_task_Popup, set_update_task_Popup] = useState(null);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(GetAllTasks());
+  }, []);
 
   function textChanged(event) {
     setTask(event.target.value);
@@ -19,7 +32,7 @@ function ToDo() {
       title: task,
       color: currentColor,
     };
-    AddTask(new_task);
+    dispatch(CreateTask(new_task));
     setTask("");
   }
 
@@ -35,6 +48,9 @@ function ToDo() {
 
   return (
     <div className="todo">
+      <h1 className="version">
+        Todo App Version : {process.env.REACT_APP_VERSION}
+      </h1>
       <Colors currentColor={currentColor} setCurCol={setCurCol} />
       {update_task_Popup && (
         <PopupEdit
@@ -65,8 +81,8 @@ function ToDo() {
               key={task._id}
               task={task}
               Edit={Edit}
-              DoneUndone={DoneUndone}
-              DeleteTask={DeleteTask}
+              DoneUndone={DoneUndoneTask}
+              DeleteTask={deleteTask}
             />
           );
         })}

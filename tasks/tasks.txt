@@ -1,0 +1,4 @@
+[ ] show the version of the app in UI from env variables
+[X] add redux to react
+[X] proxy reversed
+[X] 3: services, network and volumes in docker-compose 
