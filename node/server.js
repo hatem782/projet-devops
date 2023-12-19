@@ -15,7 +15,8 @@ if (cluster.isMaster) {
   const port = 9000;
   const cors = require("cors");
   const bodyParser = require("body-parser");
-
+  const dotenv = require("dotenv");
+  dotenv.config();
   const { corstAllowAll } = require("./configs/corsConfig");
   const { ConnectMongo } = require("./configs/MongoConfig");
   const Routes = require("./routes/Task.routes");
