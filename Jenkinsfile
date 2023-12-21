@@ -10,7 +10,8 @@ pipeline {
         stage('Build') {
             when {
                 // Stage only triggered when a merge request is created
-                expression { currentBuild.changeSets.size() > 0 && env.BRANCH_NAME == 'refs/heads/Develop' }
+                // expression { currentBuild.changeSets.size() > 0 && env.BRANCH_NAME == 'refs/heads/Develop' }
+                expression { 1 == 1 }
             }
             steps {
                 // Stage 1 Build: Compile and build the app
