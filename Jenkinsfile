@@ -3,6 +3,7 @@ pipeline {
     
     environment {
         // Define any environment variables needed for the pipeline
+        MY_VARIABLE = 'some value'
     }
 
     stages {
