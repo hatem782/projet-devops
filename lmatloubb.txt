@@ -1,0 +1,22 @@
+Third pipeline :  
+nansn3ou branche esmha release 1.0.0 l pipeline declancha kol matokhrej release jdida 
+ki tokhrej release jdida bech ysir l build mte3 les images alli normalement mhadhrine docker l files mte3ha
+
+lezem esm l image howa nafs esm mte3 l branche alli kharjet par exemple esm 
+l branche  release 1.0.0 lezem l image esmha zeda release 1.0.0
+bech najmou nmatchiw binethom na3rfou chnowa l version 
+une fois les images tbuildew n depoloi l application en utilisant ses images là 
+les images ba3d manbulidiwhom ntal3ouhom ala registry public wala privé (nchoufou
+cours docker il suffit nesn3ou un compte ala site mte3 docker hub najmou 
+na3mlou docker push behc tal3ou l images mte3kom
+
+features optionnel 
+grafana otil de monitoring mte3 consommation de ressources (cpu / espace disque )
+
+
+normalmeent wa9t na3mlou merge request ydeclencha pipeline 1 yconnecty autre utilisateur y'accepti l merge request al branche develop
+ ydeclencha l pipeline 2
+felekher ba3d masar l merge na3mlou brache release 1.0.0 doub matsirelha création ydeclencha pipeline 3 alli chyesna3 les images w ydeplowi l application 
+
+
+nchoufou kifeh ytregra pipeline bil merge request w marra bil merge 
