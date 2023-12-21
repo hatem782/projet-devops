@@ -23,7 +23,7 @@ pipeline {
                 // }
 
                     echo 'Compiling and building the app...'
-                    docker-compose up -d --build
+                    sh 'docker-compose up -d --build'
                 }
             }
         }
