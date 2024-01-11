@@ -16,13 +16,20 @@ COPY . .
 # Build the React app using Webpack
 RUN npm run build
 
-# Stage 2: Use Nginx to serve the built app
-FROM nginx:alpine
+# Stage 2: Use Node.js to serve the built app on port 3000
+FROM node:latest
 
-# Copy the built assets from the build stage to Nginx's default HTML directory
-COPY --from=build /app/dist /usr/share/nginx/html
+# Set working directory
+WORKDIR /app
 
-# Expose port 80 for Nginx
-EXPOSE 80
+# Copy the built assets from the build stage to the container
+COPY --from=build /app/dist /app/dist
 
-# Nginx is automatically started by the base image
+# Install http-server globally
+RUN npm install -g http-server
+
+# Expose port 3000 for Node.js
+EXPOSE 3000
+
+# Command to run the Node.js server Dockerfile.react
+CMD ["http-server", "-p", "3000", "./dist"]
