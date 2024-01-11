@@ -36,7 +36,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      REACT_APP_API_BACK: "http://localhost:9000"
+      REACT_APP_API_BACK: "http://localhost:9000/api"
       version_app: "1.0.0"
     depends_on:
       - task_crud_backend

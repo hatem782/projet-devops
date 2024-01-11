@@ -37,7 +37,7 @@ module.exports = {
       process: "process/browser",
     }),
     new webpack.EnvironmentPlugin({
-      REACT_APP_API_BACK: "http://localhost:9000",
+      REACT_APP_API_BACK: "http://localhost:9000/api",
       REACT_APP_VERSION: "1.0.0",
     }),
   ],

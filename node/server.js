@@ -27,9 +27,9 @@ if (cluster.isMaster) {
   app.options("*", cors());
   app.use(bodyParser.json());
 
-  app.use("/", Routes);
+  app.use("/api/", Routes);
 
-  app.get("/test", (req, res) => {
+  app.get("/api/test", (req, res) => {
     res.send("<h1>Hello World</h1>");
   });
 

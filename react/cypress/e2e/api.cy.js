@@ -1,6 +1,6 @@
 describe("tasks", () => {
   it("successfully retrieves all tasks", () => {
-    cy.request("GET", "http://localhost:9000/get-all-tasks").should(
+    cy.request("GET", "http://localhost:8080/api/get-all-tasks").should(
       (response) => {
         expect(response.status).to.eq(200);
 
@@ -26,7 +26,7 @@ describe("tasks", () => {
       color: "blue",
     };
 
-    cy.request("POST", "http://localhost:9000/create", taskData).should(
+    cy.request("POST", "http://localhost:8080/api/create", taskData).should(
       (response) => {
         expect(response.status).to.eq(201);
 
@@ -53,7 +53,7 @@ describe("tasks", () => {
   it("test if task added exist ", () => {
     cy.request({
       method: "Get",
-      url: "http://localhost:9000/get-all-tasks",
+      url: "http://localhost:8080/api/get-all-tasks",
     }).then((response) => {
       expect(response.status).to.eq(200);
       //check the response type and length
@@ -70,7 +70,7 @@ describe("tasks", () => {
     // Mark the task as done
     cy.request(
       "PUT",
-      `http://localhost:9000/done-undone-task/${taskId}`
+      `http://localhost:8080/api/done-undone-task/${taskId}`
     ).should((response) => {
       expect(response.status).to.eq(200);
 
@@ -84,7 +84,7 @@ describe("tasks", () => {
     // Mark the task as undone
     cy.request(
       "PUT",
-      `http://localhost:9000/done-undone-task/${taskId}`
+      `http://localhost:8080/api/done-undone-task/${taskId}`
     ).should((response) => {
       expect(response.status).to.eq(200);
 
@@ -104,7 +104,7 @@ describe("tasks", () => {
 
     cy.request({
       method: "POST",
-      url: "http://localhost:9000/create",
+      url: "http://localhost:8080/api/create",
       body: incompleteTaskData,
       failOnStatusCode: false, // Allow the request to fail
     }).should((response) => {
@@ -130,7 +130,7 @@ describe("tasks", () => {
     };
     cy.request({
       method: "PUT",
-      url: `http://localhost:9000/update/` + savedTask._id,
+      url: `http://localhost:8080/api/update/` + savedTask._id,
       body: data,
     }).then((response) => {
       expect(response.status).to.eq(200);
@@ -143,7 +143,7 @@ describe("tasks", () => {
   it("test if task updated sucess ", () => {
     cy.request({
       method: "Get",
-      url: "http://localhost:9000/get-all-tasks",
+      url: "http://localhost:8080/api/get-all-tasks",
     }).then((response) => {
       expect(response.status).to.eq(200);
       //check the response type and length
@@ -156,7 +156,7 @@ describe("tasks", () => {
   it("should delet task added", () => {
     cy.request({
       method: "Delete",
-      url: "http://localhost:9000/delete/" + savedTaskUpdate._id,
+      url: "http://localhost:8080/api/delete/" + savedTaskUpdate._id,
     }).then((response) => {
       expect(response.status).to.eq(200);
     });
