@@ -58,4 +58,6 @@ hadhom nemchou nasn3ouhom fi :
 
 * benesba lel CI_REGISTRY_PASSWORD : howa token temchi tjibou men : SETTINGS / ACCESS TOKEN
 
-* benesba lel CI_REGISTRY : howa esm el registry mt3ek "hatem782/registry.gitlab.com"
+* benesba lel CI_REGISTRY : howa esm el registry mt3ek "registry.gitlab.com"
+
+glpat-TxJqGSaQ4tDRCPkmUW4D

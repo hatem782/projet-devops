@@ -1,0 +1,34 @@
+stages:
+  - build
+  - unit_test
+  - integration_test
+
+build:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - echo "Building Docker images"
+    - docker-compose -f docker-compose.yml build
+    - docker-compose -f docker-compose.yml up -d
+
+unit_test:
+  stage: unit_test
+  image: node:latest
+  script:
+    - echo "Running unit tests"
+    - cd react
+    - npm install
+    - npm test
+
+integration_test:
+  stage: integration_test
+  image: cypress/browsers:node18.12.0-chrome107
+  script:
+    - echo "Running integration tests"
+    - cd react # Move to the "react" folder
+    - npm install
+    - npx cypress run
