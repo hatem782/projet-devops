@@ -21,7 +21,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "runOnChrome": "cypress run --browser chrome"
   },
   "eslintConfig": {
     "extends": [

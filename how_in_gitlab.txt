@@ -1,0 +1,61 @@
+awl 7aja na3mlou file esmha : .gitlab-ci.yml
+n7otou feha 7aja haka 
+#############################################################################
+stages:
+  - build
+  - test
+  - unit_test
+  - integration_test
+
+build:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:dind
+  before_script:
+  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - echo "Building Docker images"
+    - docker-compose -f docker-compose.yml build
+    - docker-compose -f docker-compose.yml up -d
+
+test:
+  stage: test
+  script:
+    - echo $CI_SERVER_HOST
+    # Add more commands as needed for your tests
+
+unit_test:
+  stage: unit_test
+  image: node:latest
+  script:
+    - echo "Running unit tests"
+    - cd react
+    - npm install
+    - npm test
+
+
+integration_test:
+  stage: integration_test
+  image: cypress/browsers:node18.12.0-chrome107
+  script:
+    - echo "Running integration tests"
+    - cd react  # Move to the "react" folder
+    - npm ci
+    - npm run runOnChrome  #npx cypress run
+
+#############################################################################
+
+lahna thama 3 credentials :
+CI_REGISTRY_USER
+CI_REGISTRY_PASSWORD
+CI_REGISTRY
+
+hadhom nemchou nasn3ouhom fi :
+- SETTINGS / CI/CD / Variables
+
+* benesba lel CI_REGISTRY_USER : howa esm el user mt3 gitlab "hatem782"
+
+* benesba lel CI_REGISTRY_PASSWORD : howa token temchi tjibou men : SETTINGS / ACCESS TOKEN
+
+* benesba lel CI_REGISTRY : howa esm el registry mt3ek "hatem782/registry.gitlab.com"
