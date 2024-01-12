@@ -3,17 +3,39 @@ stages:
   - unit_test
   - integration_test
 
-build:
+build-compile-front:
   stage: build
-  image: docker:20.10.16
-  services:
-    - docker:dind
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  image: node:latest
   script:
-    - echo "Building Docker images"
-    - docker-compose -f docker-compose.yml build
-    - docker-compose -f docker-compose.yml up -d
+    - echo "compiling react app"
+    - cd react
+    - npm install
+    - npm start &
+  only:
+    - merge_requests
+
+build-build-front:
+  stage: build
+  image: node:latest
+  script:
+    - echo "compiling react app"
+    - cd react
+    - npm install
+    - npm run build
+  only:
+    - merge_requests
+
+build-compile-backend:
+  stage: build
+  image: node:latest
+  services:
+    - name: mongo:latest
+      alias: mongodb
+  script:
+    - echo "compiling node app"
+    - cd node
+    - npm install
+    - npm start &
   only:
     - merge_requests
 

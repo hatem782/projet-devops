@@ -3,23 +3,39 @@ stages:
   - unit_test
   - integration_test
 
-# workflow:
-#   rules:
-#     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-#     - if: $CI_COMMIT_TAG
-#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-
-build:
+build-compile-front:
   stage: build
-  image: docker:20.10.16
-  services:
-    - docker:dind
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  image: node:latest
   script:
-    - echo "Building Docker images"
-    - docker-compose -f docker-compose.yml build
-    - docker-compose -f docker-compose.yml up -d
+    - echo "compiling react app"
+    - cd react
+    - npm install
+    - npm start &
+  only:
+    - merge_requests@Develop
+
+build-build-front:
+  stage: build
+  image: node:latest
+  script:
+    - echo "compiling react app"
+    - cd react
+    - npm install
+    - npm run build
+  only:
+    - merge_requests@Develop
+
+build-compile-backend:
+  stage: build
+  image: node:latest
+  services:
+    - name: mongo:latest
+      alias: mongodb
+  script:
+    - echo "compiling node app"
+    - cd node
+    - npm install
+    - npm start &
   only:
     - merge_requests@Develop
 
@@ -33,13 +49,21 @@ unit_test:
     - npm test
   only:
     - merge_requests@Develop
-# integration_test:
-#   stage: integration_test
-#   image: cypress/browsers:node18.12.0-chrome107
-#   script:
-#     - echo "Running integration tests"
-#     - cd react # Move to the "react" folder
-#     - npm install
-#     - npx cypress run
-# only:
-#   - merge_requests@Develop
+
+integration_test:
+  stage: integration_test
+  image: cypress/browsers:node18.12.0-chrome107
+  services:
+    - name: mongo:latest
+      alias: mongodb
+  script:
+    - echo "Running integration tests"
+    - cd node
+    - npm install
+    - npm start &
+    - cd ..
+    - cd react
+    - npm install
+    - npx cypress run
+only:
+  - merge_requests@Develop
