@@ -2,39 +2,17 @@ stages:
   - build
   - deply
 
-build-compile-front:
+build:
   stage: build
-  image: node:latest
-  script:
-    - echo "compiling react app"
-    - cd react
-    - npm install
-    - npm start &
-  only:
-    - /^release-\d+\.\d+\.\d+$/
-
-build-build-front:
-  stage: build
-  image: node:latest
-  script:
-    - echo "compiling react app"
-    - cd react
-    - npm install
-    - npm run build
-  only:
-    - /^release-\d+\.\d+\.\d+$/
-
-build-compile-backend:
-  stage: build
-  image: node:latest
+  image: docker:latest
   services:
-    - name: mongo:latest
-      alias: mongodb
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER_2" -p "$CI_REGISTRY_PASSWORD_2" $CI_REGISTRY_2
   script:
-    - echo "compiling node app"
-    - cd node
-    - npm install
-    - npm start &
+    - docker-compose -f docker-compose.yml build
+    - docker-compose -f docker-compose.yml up -d
+    - docker images
   only:
     - /^release-\d+\.\d+\.\d+$/
 
