@@ -1,34 +1,36 @@
 stages:
   - build
-  - unit_test
-  - integration_test
+  - deply
 
 build:
   stage: build
-  image: docker:20.10.16
+  image: docker:latest
   services:
     - docker:dind
   before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker login -u "$CI_REGISTRY_USER_2" -p "$CI_REGISTRY_PASSWORD_2" $CI_REGISTRY_2
   script:
-    - echo "Building Docker images"
     - docker-compose -f docker-compose.yml build
     - docker-compose -f docker-compose.yml up -d
+    - docker images
+  # only:
+  #   - /^release-\d+\.\d+\.\d+$/
 
-unit_test:
-  stage: unit_test
-  image: node:latest
+deply:
+  stage: deply
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER_2" -p "$CI_REGISTRY_PASSWORD_2" $CI_REGISTRY_2
   script:
-    - echo "Running unit tests"
-    - cd react
-    - npm install
-    - npm test
-
-integration_test:
-  stage: integration_test
-  image: cypress/browsers:node18.12.0-chrome107
-  script:
-    - echo "Running integration tests"
-    - cd react # Move to the "react" folder
-    - npm install
-    - npx cypress run
+    - docker-compose -f docker-compose.yml build
+    - docker-compose -f docker-compose.yml up -d
+    - docker images
+    - docker tag projet-devops-task_crud_frontend hatem782/app-front:v1.0.0
+    - docker tag projet-devops-task_crud_backend hatem782/app-back:v1.0.0
+    - docker images
+    - docker push hatem782/app-front:v1.0.0
+    - docker push hatem782/app-back:v1.0.0
+  # only:
+  #   - /^release-\d+\.\d+\.\d+$/

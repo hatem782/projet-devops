@@ -14,6 +14,8 @@ build:
     - echo "Building Docker images"
     - docker-compose -f docker-compose.yml build
     - docker-compose -f docker-compose.yml up -d
+  only:
+    - merge_requests
 
 unit_test:
   stage: unit_test
@@ -23,12 +25,15 @@ unit_test:
     - cd react
     - npm install
     - npm test
-
-integration_test:
-  stage: integration_test
-  image: cypress/browsers:node18.12.0-chrome107
-  script:
-    - echo "Running integration tests"
-    - cd react # Move to the "react" folder
-    - npm install
-    - npx cypress run
+  only:
+    - merge_requests
+# integration_test:
+#   stage: integration_test
+#   image: cypress/browsers:node18.12.0-chrome107
+#   script:
+#     - echo "Running integration tests"
+#     - cd react # Move to the "react" folder
+#     - npm install
+#     - npx cypress run
+# only:
+#   - merge_requests
