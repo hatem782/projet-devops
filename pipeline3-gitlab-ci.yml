@@ -1,0 +1,37 @@
+stages:
+  - build
+  - deply
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER_2" -p "$CI_REGISTRY_PASSWORD_2" $CI_REGISTRY_2
+  script:
+    - docker-compose -f docker-compose.yml build
+    - docker-compose -f docker-compose.yml up -d
+    - docker images
+  only:
+    - /^release-\d+\.\d+\.\d+$/
+
+deply:
+  stage: deply
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER_2" -p "$CI_REGISTRY_PASSWORD_2" $CI_REGISTRY_2
+  script:
+    - docker-compose -f docker-compose.yml build
+    - docker-compose -f docker-compose.yml up -d
+    - docker images
+    - docker tag projet-devops-task_crud_frontend hatem782/app-front:v1.0.0
+    - docker tag projet-devops-task_crud_backend hatem782/app-back:v1.0.0
+    - docker images
+    - docker push hatem782/app-front:v1.0.0
+    - docker push hatem782/app-back:v1.0.0
+  only:
+    - /^release-\d+\.\d+\.\d+$/
+

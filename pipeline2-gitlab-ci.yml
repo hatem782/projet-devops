@@ -1,0 +1,69 @@
+stages:
+  - build
+  - unit_test
+  - integration_test
+
+build-compile-front:
+  stage: build
+  image: node:latest
+  script:
+    - echo "compiling react app"
+    - cd react
+    - npm install
+    - npm start &
+  only:
+    - merge_requests@Develop
+
+build-build-front:
+  stage: build
+  image: node:latest
+  script:
+    - echo "compiling react app"
+    - cd react
+    - npm install
+    - npm run build
+  only:
+    - merge_requests@Develop
+
+build-compile-backend:
+  stage: build
+  image: node:latest
+  services:
+    - name: mongo:latest
+      alias: mongodb
+  script:
+    - echo "compiling node app"
+    - cd node
+    - npm install
+    - npm start &
+  only:
+    - merge_requests@Develop
+
+unit_test:
+  stage: unit_test
+  image: node:latest
+  script:
+    - echo "Running unit tests"
+    - cd react
+    - npm install
+    - npm test
+  only:
+    - merge_requests@Develop
+
+integration_test:
+  stage: integration_test
+  image: cypress/browsers:node18.12.0-chrome107
+  services:
+    - name: mongo:latest
+      alias: mongodb
+  script:
+    - echo "Running integration tests"
+    - cd node
+    - npm install
+    - npm start &
+    - cd ..
+    - cd react
+    - npm install
+    - npx cypress run
+  only:
+    - merge_requests@Develop
